@@ -56,7 +56,15 @@ Nous présenterons les raisons pour lesquelles la complexité de la structure de
 - differences in geometry and structure 
 - why DNA and protein structure is easier to predict than RNA
 
+Les structures d'ADN et de protéines sont généralement plus faciles à prédire que celles de l'ARN puisqu'elles présentent des structures beaucoup plus consistantes et rigides. En effet, l'ADN présente une structure uniforme de double hélice très prévisible qui consistent d'une série répétitive de paires de bases nucléotidiques suivant des règles d'appariement Watson-Crick (A-T, C-G). Elle suit des règles de géométrie simples qui rendent sa structure stable à l'aide d'interactions hydrophobes et de Van der Waals. De ce fait, la stabilité de la structure de l'ADN permet la conservation de l'information génétique. Ses propriétés de superposition, donc l’empilement des bases azotées les unes sur les autres au centre de la double hélice, facilitemt grandement la modélisation. [@dna]
+
+Les structures de protéines, quant à eux, bénéficient d'un large éventail de données disponibles. La Protein Data Bank (PDB) contient plus de 200 000 structures de protéines annotées, alors qu'il en existe seulement 10 000 pour les structures de l'ARN. Le repliement des protéines est plus prévisible que celui de l'ARN, se basant sur la séquence primaire de la chaîne d'acides aminés. De plus, les protéines contiennent de l'information évolutif, aidant fortement les algorithmes de prédiction à inférer les séquences d'acides aminés en utilisant des alignements de séquences multiples. [@protein]
+
 # Structure d'ARN
+La modélisation de l'ARN est difficile, notamment à cause de sa structure. Elle présente une seule chaîne de nucléotides, donc nous perdons les propriétés de superposition offertes par l'ADN (plus possible d'avoir une structure constante de double hélice parfaite) 
+
+Les ARNs sont moins annotés que les protéines, surtout puisqu'il est chimiquement plus difficile d'entreprendre des expériences de cristallographie pour définir leurs structures. [@RNAFunctionFollowsForm]
+
 ## Structures de l'ARN : primaire, secondaire et tertiaire
 ## Structure secondaire de l'ARN
 - Loops, folding, motifs (eg. A-Minor)
