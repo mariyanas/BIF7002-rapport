@@ -1557,25 +1557,53 @@ différents outils existants pour l’identifier et la prédire.</p>
 </div>
 <div id="adn-arn-et-protéines" class="section level1">
 <h1>ADN, ARN et protéines</h1>
-<ul>
-<li>differences in geometry and structure</li>
-<li>why DNA and protein structure is easier to predict than RNA</li>
-</ul>
+<p>Les structures d’ADN et de protéines sont généralement plus faciles à
+prédire que celles de l’ARN puisqu’elles présentent des structures
+beaucoup plus consistantes et rigides. En effet, l’ADN présente une
+structure uniforme de double hélice très prévisible qui consistent d’une
+série répétitive de paires de bases nucléotidiques suivant des règles
+d’appariement Watson-Crick (A-T, C-G). Elle suit des règles de géométrie
+simples qui rendent sa structure stable à l’aide d’interactions
+hydrophobes et de Van der Waals. De ce fait, la stabilité de la
+structure de l’ADN permet la conservation de l’information génétique.
+Ses propriétés de superposition, donc l’empilement des bases azotées les
+unes sur les autres au centre de la double hélice, facilitemt grandement
+la modélisation. <span class="citation">(<a href="#ref-dna">3</a>)</span></p>
+<p>Les structures de protéines, quant à eux, bénéficient d’un large
+éventail de données disponibles. La Protein Data Bank (PDB) contient
+plus de 200 000 structures de protéines annotées, alors qu’il en existe
+seulement 10 000 pour les structures de l’ARN. Le repliement des
+protéines est plus prévisible que celui de l’ARN, se basant sur la
+séquence primaire de la chaîne d’acides aminés. De plus, les protéines
+contiennent de l’information évolutif, aidant fortement les algorithmes
+de prédiction à inférer les séquences d’acides aminés en utilisant des
+alignements de séquences multiples. <span class="citation">(<a href="#ref-protein">4</a>)</span></p>
 </div>
 <div id="structure-darn" class="section level1">
 <h1>Structure d’ARN</h1>
-<div id="structures-de-larn-primaire-secondaire-et-tertiaire" class="section level2">
-<h2>Structures de l’ARN : primaire, secondaire et tertiaire</h2>
-</div>
-<div id="structure-secondaire-de-larn" class="section level2">
-<h2>Structure secondaire de l’ARN</h2>
-<ul>
-<li>Loops, folding, motifs (eg. A-Minor)</li>
-</ul>
-</div>
-<div id="paires-de-bases-canoniques-vs-non-canoniques" class="section level2">
-<h2>Paires de bases canoniques vs non-canoniques</h2>
-</div>
+<p>La modélisation de l’ARN est difficile, notamment à cause de sa
+structure. Elle présente une seule chaîne de nucléotides, donc nous
+perdons les propriétés de superposition offertes par l’ADN (plus
+possible d’avoir une structure constante de double hélice parfaite).
+Cette chaîne de nucléotides permet aux interactions d’appariement de
+bases de se produire entre les nucléotides d’un même brin. Les motifs
+structurels, comme les hélices et les boucles, sont des éléments de
+structure secondaire qui résultent de ces interactions. <span class="citation">(<a href="#ref-RNAStructures">5</a>)</span> Une boucle
+est créée lorsqu’un brin d’ARN se replie et forme des paires de bases
+avec une autre section du même brin, et les hélices sont principalement
+formées par des empilements de paires de bases Watson-Crick.</p>
+<p>Bien que l’appariement des bases soit souvent considéré en termes de
+paires Watson-Crick (A-U, C-G), d’autres appariements sont également
+possibles. <span class="citation">(<a href="#ref-RNAMotifs">6</a>)</span> Les paires de bases non-Watson-Crick
+impliquent différentes interactions nucléotidiques de l’appariement
+Watson-Crick. (include examples?) Les paires de bases non-Watson-Crick
+jouent un rôle important dans la stabilisation de la structure tertiaire
+de l’ARN. Ces interactions tertiaires, appelées modules d’ARN, sont
+caractérisées par des ensembles de paires de bases non-Watson-Crick
+orientées et ordonnées. <span class="citation">(<a href="#ref-RNAStructures">5</a>)</span></p>
+<p>Les ARNs sont moins annotés que les protéines, surtout puisqu’il est
+chimiquement plus difficile d’entreprendre des expériences de
+cristallographie pour définir leurs structures. <span class="citation">(<a href="#ref-RNAFunctionFollowsForm">2</a>)</span></p>
 </div>
 <div id="représentations-des-structures-secondaires-de-larn" class="section level1">
 <h1>Représentations des structures secondaires de l’ARN</h1>
@@ -1627,31 +1655,56 @@ D. RNA function follows form – why is it so hard to predict? Nature
 [Internet]. 2025; Available from: <a href="doi:%20https://doi.org/10.1038/d41586-025-00920-8">doi:
 https://doi.org/10.1038/d41586-025-00920-8</a></div>
 </div>
+<div id="ref-dna" class="csl-entry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Zi-Chun Mu JL Ya-Lan Tan. Computational
+modeling of DNA 3D structures: From dynamics and mechanics to folding.
+Molecules (Basel, Switzerland), 28(12), 4833 [Internet]. 2020; Available
+from: <a href="doi:%20https://doi.org/10.3390/molecules28124833">doi:
+https://doi.org/10.3390/molecules28124833</a></div>
+</div>
+<div id="ref-protein" class="csl-entry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Mirko Torrisi QL Gianluca Pollastri. Deep
+learning methods in protein structure prediction. Computational and
+structural biotechnology journal, 18, 1301–1310 [Internet]. 2020;
+Available from: <a href="doi:%20https://doi.org/10.1016/j.csbj.2019.12.011">doi:
+https://doi.org/10.1016/j.csbj.2019.12.011</a></div>
+</div>
+<div id="ref-RNAStructures" class="csl-entry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">José
+Almeida Cruz EW. Sequence-based identification of 3D structural modules
+in RNA with RMDetect. Nature Methods [Internet]. 2011; Available from:
+<a href="https://doi.org/10.1038/nmeth.1603">https://doi.org/10.1038/nmeth.1603</a></div>
+</div>
+<div id="ref-RNAMotifs" class="csl-entry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Neocles B Leontis EW Aurelie Lescoute. The
+building blocks and motifs of RNA architecture. Current Opinion in
+Structural Biology [Internet]. 2006; Available from: <a href="https://doi.org/10.1016/j.sbi.2006.05.009">https://doi.org/10.1016/j.sbi.2006.05.009</a></div>
+</div>
 <div id="ref-stochastic" class="csl-entry">
-<div class="csl-left-margin">3. </div><div class="csl-right-inline">Roman Sarrazin-Gendron VR Hua-Ting Yao.
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Roman Sarrazin-Gendron VR Hua-Ting Yao.
 Stochastic sampling of structural contexts improves the scalability and
 accuracy of RNA 3D module identification. bioRxiv 834762 [Internet].
 2020; Available from: <a href="https://doi.org/10.1101/834762">https://doi.org/10.1101/834762</a></div>
 </div>
 <div id="ref-RNAloops" class="csl-entry">
-<div class="csl-left-margin">4. </div><div class="csl-right-inline">Jakub Wiedemann MM Jacek Kaczor. RNAloops: A
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Jakub Wiedemann MM Jacek Kaczor. RNAloops: A
 database of RNA multiloops. Bioinformatics (Oxford, England), 38(17),
 4200–4205 [Internet]. 2022; Available from: <a href="https://doi.org/10.1093/bioinformatics/btac484">https://doi.org/10.1093/bioinformatics/btac484</a></div>
 </div>
 <div id="ref-RNAMotifProfile" class="csl-entry">
-<div class="csl-left-margin">5. </div><div class="csl-right-inline">Md
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Md
 Mahfuzur Rahaman SZ. RNAMotifProfile: A graph-based approach to build
 RNA structural motif profiles. NAR Genomics and Bioinformatics, Volume
 6, Issue 3 [Internet]. 2024; Available from: <a href="https://doi.org/10.1093/nargab/lqae128">https://doi.org/10.1093/nargab/lqae128</a></div>
 </div>
 <div id="ref-pseudoknots" class="csl-entry">
-<div class="csl-left-margin">6. </div><div class="csl-right-inline">Gabriel Loyer VR. Concurrent prediction of RNA
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Gabriel Loyer VR. Concurrent prediction of RNA
 secondary structures with pseudoknots and local 3D motifs in an integer
 programming framework. Bioinformatics (Oxford, England), 40(2), btae022
 [Internet]. 2024; Available from: <a href="https://doi.org/10.1093/bioinformatics/btae022">https://doi.org/10.1093/bioinformatics/btae022</a></div>
 </div>
 <div id="ref-edge" class="csl-entry">
-<div class="csl-left-margin">7. </div><div class="csl-right-inline">Antoine Soulé RSG Vladimir Reinharz. Finding
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Antoine Soulé RSG Vladimir Reinharz. Finding
 recurrent RNA structural networks with fast maximal common subgraphs of
 edge-colored graphs. PLoS Comput Biol 17(5): e1008990 [Internet]. 2021;
 Available from: <a href="https://doi.org/10.1371/journal.pcbi.1008990">https://doi.org/10.1371/journal.pcbi.1008990</a></div>
