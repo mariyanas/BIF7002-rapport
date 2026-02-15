@@ -26,8 +26,13 @@ link-citations: true
   padding-left: 2em;
 }
 
+#TOC{
+  padding:5px;
+}
+
 body{ /* Normal  */
     font-size: 14px;
+     margin: 35px;
 }
   
 h1 { /* Header 1 */
@@ -52,32 +57,34 @@ Nous présenterons les raisons pour lesquelles la complexité de la structure de
 
 
 
-# ADN, ARN et protéines
+# ADN et protéines
 
 Les structures d'ADN et de protéines sont généralement plus faciles à prédire que celles de l'ARN puisqu'elles présentent des structures beaucoup plus consistantes et rigides. En effet, l'ADN présente une structure uniforme de double hélice très prévisible qui consistent d'une série répétitive de paires de bases nucléotidiques suivant des règles d'appariement Watson-Crick (A-T, C-G). Elle suit des règles de géométrie simples qui rendent sa structure stable à l'aide d'interactions hydrophobes et de Van der Waals. De ce fait, la stabilité de la structure de l'ADN permet la conservation de l'information génétique. Ses propriétés de superposition, donc l’empilement des bases azotées les unes sur les autres au centre de la double hélice, facilitemt grandement la modélisation. [@dna]
 
-Les structures de protéines, quant à eux, bénéficient d'un large éventail de données disponibles. La Protein Data Bank (PDB) contient plus de 200 000 structures de protéines annotées, alors qu'il en existe seulement 10 000 pour les structures de l'ARN. Le repliement des protéines est plus prévisible que celui de l'ARN, se basant sur la séquence primaire de la chaîne d'acides aminés. De plus, les protéines contiennent de l'information évolutif, aidant fortement les algorithmes de prédiction à inférer les séquences d'acides aminés en utilisant des alignements de séquences multiples. [@protein]
+Les structures de protéines, quant à eux, bénéficient d'un large éventail de données disponibles. La Protein Data Bank (PDB) contient plus de 200 000 structures de protéines annotées, alors qu'il en existe seulement 10 000 pour les structures de l'ARN. Le repliement des protéines est plus prévisible que celui de l'ARN, se basant sur la séquence primaire de la chaîne d'acides aminés. De plus, les protéines contiennent de l'information évolutif, aidant fortement les algorithmes de prédiction à inférer les séquences d'acides aminés en utilisant des alignements de séquences multiples. [@protein] Les ARNs sont moins annotés que les protéines, surtout puisqu'il est chimiquement plus difficile d'entreprendre des expériences de cristallographie pour définir leurs structures. [@RNAFunctionFollowsForm]
 
 # Structure d'ARN
-La modélisation de l’ARN est difficile, notamment à cause de sa structure. Elle présente une seule chaîne de nucléotides, donc nous perdons les propriétés de superposition offertes par l’ADN (plus possible d’avoir une structure constante de double hélice parfaite). Cette chaîne de nucléotides permet aux interactions d'appariement de bases de se produire entre les nucléotides d'un même brin. Les motifs structurels, comme les hélices et les boucles, sont des éléments de structure secondaire qui résultent de ces interactions. [@RNAStructures] Une boucle est créée lorsqu'un brin d'ARN se replie et forme des paires de bases avec une autre section du même brin, et les hélices sont principalement formées par des empilements de paires de bases Watson-Crick. 
+La modélisation de l’ARN est difficile, notamment à cause de sa structure. Elle présente une seule chaîne de nucléotides, donc nous perdons les propriétés de superposition offertes par l’ADN (plus possible d’avoir une structure constante de double hélice parfaite). Cette chaîne de nucléotides permet aux interactions d'appariement de bases de se produire entre les nucléotides d'un même brin. Les motifs structurels, comme les hélices et les boucles, sont des éléments de structure secondaire assemblés à partir de paires de bases Watson-Crick (A-U et C-G) et de paires de bases wobble (G-U). [@RNAStructures] 
 
-Bien que l'appariement des bases soit souvent considéré en termes de paires Watson-Crick (A-U, C-G), d'autres appariements sont également possibles. [@RNAMotifs] Les paires de bases non-Watson-Crick impliquent différentes interactions nucléotidiques de l'appariement Watson-Crick. (include examples?) Les paires de bases non-Watson-Crick jouent un rôle important dans la stabilisation de la structure tertiaire de l'ARN. Ces interactions tertiaires, appelées modules d'ARN, sont caractérisées par des ensembles de paires de bases non-Watson-Crick orientées et ordonnées. [@RNAStructures]
+Bien que l’appariement des bases soit souvent considéré en termes de paires Watson-Crick (A-U, C-G), d’autres appariements sont également possibles. [@RNAMotifs] Les paires de bases non-Watson-Crick impliquent différentes interactions nucléotidiques de l’appariement Watson-Crick. Les éléments structuraux secondaires s'assemblent principalement à l'aide de paires de bases non-Watson-Crick pour former des structures tertiaires, tels que des kink-turns ou A-mineurs.
 
+Ces structures, appelées modules d’ARN, sont caractérisées par des ensembles de paires de bases non-Watson-Crick orientées et ordonnées. [@RNAStructures] Les paires de bases non-Watson-Crick jouent un rôle important dans la stabilisation de la structure tertiaire de l’ARN. Les modules ont aussi d'autres rôles fonctionnels importants dans les molécules d'ARN, comme servir de sites de liaison aux protéines et à l'ARN. [@RNAStructures]
 
-Les ARNs sont moins annotés que les protéines, surtout puisqu'il est chimiquement plus difficile d'entreprendre des expériences de cristallographie pour définir leurs structures. [@RNAFunctionFollowsForm]
+L'ARN peut également interagir entre lui (ARN-ARN) ou avec d'autres molécules (ARN-ADN, ARN-protéines), formant des structures quaternaires, comme les ribosomes ou les spliceosomes. [@RNAStructures2]
 
-# Représentations des structures secondaires de l'ARN
-## Dot-bracket notation
-## Programmation dynamique
-## L'ARN représenté sous forme de grpahes
+- add why these characteristics/properties make RNA hard to model/predict
 
 # Approches informatiques de la représentation d'ARN
-## Pasigraph
-## FR3D-python
+On peut modéliser l'ARN sous forme de graphes. Le modèle Leontis-Westhof classe les configurations géométriques des paires de bases en 12 classes selon les arêtes impliquées. Cette représentation graphique permet une analyse informatique efficace des structures d'ARN et peut représenter les structures tridimensionnelles et les arêtes. [@Leontis-Westhof]
+
+- more on this? include dot-bracket notation?
+
 ## CaRNAval
-## FuzzTree
+[CaRNAval](https://carnaval.cbe.uqam.ca/) utilise une méthodologie basée sur les graphes pour extraire tous les Réseaux Récurrents d'interaction (RINs) de la PDB. Il cherche tous les patrons des paires de bases et trouve les modifications et réseaux associés.
+
+## RNA 3D Motif Atlas
 ## BayesPairing2
-## Cantaloops
+[BayesPairing2](https://jwgitlab.cs.mcgill.ca/sarrazin/rnabayespairing2)
 
 # Conclusion et perspectives
 

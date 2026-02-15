@@ -1523,8 +1523,12 @@ text-indent: initial;
 text-indent: initial;
 padding-left: 2em;
 }
+#TOC{
+padding:5px;
+}
 body{ 
 font-size: 14px;
+margin: 35px;
 }
 h1 { 
 font-size: 22px;
@@ -1555,8 +1559,8 @@ disponibles et de ses propriétés structurelles, telles que ses motifs.
 structure de l’ARN rend sa prédiction difficile, ainsi que les
 différents outils existants pour l’identifier et la prédire.</p>
 </div>
-<div id="adn-arn-et-protéines" class="section level1">
-<h1>ADN, ARN et protéines</h1>
+<div id="adn-et-protéines" class="section level1">
+<h1>ADN et protéines</h1>
 <p>Les structures d’ADN et de protéines sont généralement plus faciles à
 prédire que celles de l’ARN puisqu’elles présentent des structures
 beaucoup plus consistantes et rigides. En effet, l’ADN présente une
@@ -1577,7 +1581,10 @@ protéines est plus prévisible que celui de l’ARN, se basant sur la
 séquence primaire de la chaîne d’acides aminés. De plus, les protéines
 contiennent de l’information évolutif, aidant fortement les algorithmes
 de prédiction à inférer les séquences d’acides aminés en utilisant des
-alignements de séquences multiples. <span class="citation">(<a href="#ref-protein">4</a>)</span></p>
+alignements de séquences multiples. <span class="citation">(<a href="#ref-protein">4</a>)</span> Les ARNs sont moins annotés que les
+protéines, surtout puisqu’il est chimiquement plus difficile
+d’entreprendre des expériences de cristallographie pour définir leurs
+structures. <span class="citation">(<a href="#ref-RNAFunctionFollowsForm">2</a>)</span></p>
 </div>
 <div id="structure-darn" class="section level1">
 <h1>Structure d’ARN</h1>
@@ -1588,54 +1595,54 @@ possible d’avoir une structure constante de double hélice parfaite).
 Cette chaîne de nucléotides permet aux interactions d’appariement de
 bases de se produire entre les nucléotides d’un même brin. Les motifs
 structurels, comme les hélices et les boucles, sont des éléments de
-structure secondaire qui résultent de ces interactions. <span class="citation">(<a href="#ref-RNAStructures">5</a>)</span> Une boucle
-est créée lorsqu’un brin d’ARN se replie et forme des paires de bases
-avec une autre section du même brin, et les hélices sont principalement
-formées par des empilements de paires de bases Watson-Crick.</p>
+structure secondaire assemblés à partir de paires de bases Watson-Crick
+(A-U et C-G) et de paires de bases wobble (G-U). <span class="citation">(<a href="#ref-RNAStructures">5</a>)</span></p>
 <p>Bien que l’appariement des bases soit souvent considéré en termes de
 paires Watson-Crick (A-U, C-G), d’autres appariements sont également
 possibles. <span class="citation">(<a href="#ref-RNAMotifs">6</a>)</span> Les paires de bases non-Watson-Crick
 impliquent différentes interactions nucléotidiques de l’appariement
-Watson-Crick. (include examples?) Les paires de bases non-Watson-Crick
-jouent un rôle important dans la stabilisation de la structure tertiaire
-de l’ARN. Ces interactions tertiaires, appelées modules d’ARN, sont
-caractérisées par des ensembles de paires de bases non-Watson-Crick
-orientées et ordonnées. <span class="citation">(<a href="#ref-RNAStructures">5</a>)</span></p>
-<p>Les ARNs sont moins annotés que les protéines, surtout puisqu’il est
-chimiquement plus difficile d’entreprendre des expériences de
-cristallographie pour définir leurs structures. <span class="citation">(<a href="#ref-RNAFunctionFollowsForm">2</a>)</span></p>
-</div>
-<div id="représentations-des-structures-secondaires-de-larn" class="section level1">
-<h1>Représentations des structures secondaires de l’ARN</h1>
-<div id="dot-bracket-notation" class="section level2">
-<h2>Dot-bracket notation</h2>
-</div>
-<div id="programmation-dynamique" class="section level2">
-<h2>Programmation dynamique</h2>
-</div>
-<div id="larn-représenté-sous-forme-de-grpahes" class="section level2">
-<h2>L’ARN représenté sous forme de grpahes</h2>
-</div>
+Watson-Crick. Les éléments structuraux secondaires s’assemblent
+principalement à l’aide de paires de bases non-Watson-Crick pour former
+des structures tertiaires, tels que des kink-turns ou A-mineurs.</p>
+<p>Ces structures, appelées modules d’ARN, sont caractérisées par des
+ensembles de paires de bases non-Watson-Crick orientées et ordonnées.
+<span class="citation">(<a href="#ref-RNAStructures">5</a>)</span> Les
+paires de bases non-Watson-Crick jouent un rôle important dans la
+stabilisation de la structure tertiaire de l’ARN. Les modules ont aussi
+d’autres rôles fonctionnels importants dans les molécules d’ARN, comme
+servir de sites de liaison aux protéines et à l’ARN. <span class="citation">(<a href="#ref-RNAStructures">5</a>)</span></p>
+<p>L’ARN peut également interagir entre lui (ARN-ARN) ou avec d’autres
+molécules (ARN-ADN, ARN-protéines), formant des structures quaternaires,
+comme les ribosomes ou les spliceosomes. <span class="citation">(<a href="#ref-RNAStructures2">7</a>)</span></p>
+<ul>
+<li>add why these characteristics/properties make RNA hard to
+model/predict</li>
+</ul>
 </div>
 <div id="approches-informatiques-de-la-représentation-darn" class="section level1">
 <h1>Approches informatiques de la représentation d’ARN</h1>
-<div id="pasigraph" class="section level2">
-<h2>Pasigraph</h2>
-</div>
-<div id="fr3d-python" class="section level2">
-<h2>FR3D-python</h2>
-</div>
+<p>On peut modéliser l’ARN sous forme de graphes. Le modèle
+Leontis-Westhof classe les configurations géométriques des paires de
+bases en 12 classes selon les arêtes impliquées. Cette représentation
+graphique permet une analyse informatique efficace des structures d’ARN
+et peut représenter les structures tridimensionnelles et les arêtes.
+<span class="citation">(<a href="#ref-Leontis-Westhof">8</a>)</span></p>
+<ul>
+<li>more on this? include dot-bracket notation?</li>
+</ul>
 <div id="carnaval" class="section level2">
 <h2>CaRNAval</h2>
+<p><a href="https://carnaval.cbe.uqam.ca/">CaRNAval</a> utilise une
+méthodologie basée sur les graphes pour extraire tous les Réseaux
+Récurrents d’interaction (RINs) de la PDB. Il cherche tous les patrons
+des paires de bases et trouve les modifications et réseaux associés.</p>
 </div>
-<div id="fuzztree" class="section level2">
-<h2>FuzzTree</h2>
+<div id="rna-3d-motif-atlas" class="section level2">
+<h2>RNA 3D Motif Atlas</h2>
 </div>
 <div id="bayespairing2" class="section level2">
 <h2>BayesPairing2</h2>
-</div>
-<div id="cantaloops" class="section level2">
-<h2>Cantaloops</h2>
+<p><a href="https://jwgitlab.cs.mcgill.ca/sarrazin/rnabayespairing2">BayesPairing2</a></p>
 </div>
 </div>
 <div id="conclusion-et-perspectives" class="section level1">
@@ -1680,31 +1687,42 @@ in RNA with RMDetect. Nature Methods [Internet]. 2011; Available from:
 building blocks and motifs of RNA architecture. Current Opinion in
 Structural Biology [Internet]. 2006; Available from: <a href="https://doi.org/10.1016/j.sbi.2006.05.009">https://doi.org/10.1016/j.sbi.2006.05.009</a></div>
 </div>
+<div id="ref-RNAStructures2" class="csl-entry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Jinsong Zhang LS Yuhan Fei. Advances and
+opportunities in RNA structure experimental determination and
+computational modeling. Nature Methods [Internet]. 2022; Available from:
+<a href="https://doi.org/10.1038/s41592-022-01623-y">https://doi.org/10.1038/s41592-022-01623-y</a></div>
+</div>
+<div id="ref-Leontis-Westhof" class="csl-entry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Neocles B Leontis EW. Geometric nomenclature
+and classification of RNA base pairs. Cambridge University Press
+[Internet]. 2001; Available from: <a href="https://doi:10.1017/S1355838201002515">doi:10.1017/S1355838201002515</a></div>
+</div>
 <div id="ref-stochastic" class="csl-entry">
-<div class="csl-left-margin">7. </div><div class="csl-right-inline">Roman Sarrazin-Gendron VR Hua-Ting Yao.
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Roman Sarrazin-Gendron VR Hua-Ting Yao.
 Stochastic sampling of structural contexts improves the scalability and
 accuracy of RNA 3D module identification. bioRxiv 834762 [Internet].
 2020; Available from: <a href="https://doi.org/10.1101/834762">https://doi.org/10.1101/834762</a></div>
 </div>
 <div id="ref-RNAloops" class="csl-entry">
-<div class="csl-left-margin">8. </div><div class="csl-right-inline">Jakub Wiedemann MM Jacek Kaczor. RNAloops: A
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Jakub Wiedemann MM Jacek Kaczor. RNAloops: A
 database of RNA multiloops. Bioinformatics (Oxford, England), 38(17),
 4200–4205 [Internet]. 2022; Available from: <a href="https://doi.org/10.1093/bioinformatics/btac484">https://doi.org/10.1093/bioinformatics/btac484</a></div>
 </div>
 <div id="ref-RNAMotifProfile" class="csl-entry">
-<div class="csl-left-margin">9. </div><div class="csl-right-inline">Md
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Md
 Mahfuzur Rahaman SZ. RNAMotifProfile: A graph-based approach to build
 RNA structural motif profiles. NAR Genomics and Bioinformatics, Volume
 6, Issue 3 [Internet]. 2024; Available from: <a href="https://doi.org/10.1093/nargab/lqae128">https://doi.org/10.1093/nargab/lqae128</a></div>
 </div>
 <div id="ref-pseudoknots" class="csl-entry">
-<div class="csl-left-margin">10. </div><div class="csl-right-inline">Gabriel Loyer VR. Concurrent prediction of RNA
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Gabriel Loyer VR. Concurrent prediction of RNA
 secondary structures with pseudoknots and local 3D motifs in an integer
 programming framework. Bioinformatics (Oxford, England), 40(2), btae022
 [Internet]. 2024; Available from: <a href="https://doi.org/10.1093/bioinformatics/btae022">https://doi.org/10.1093/bioinformatics/btae022</a></div>
 </div>
 <div id="ref-edge" class="csl-entry">
-<div class="csl-left-margin">11. </div><div class="csl-right-inline">Antoine Soulé RSG Vladimir Reinharz. Finding
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">Antoine Soulé RSG Vladimir Reinharz. Finding
 recurrent RNA structural networks with fast maximal common subgraphs of
 edge-colored graphs. PLoS Comput Biol 17(5): e1008990 [Internet]. 2021;
 Available from: <a href="https://doi.org/10.1371/journal.pcbi.1008990">https://doi.org/10.1371/journal.pcbi.1008990</a></div>
