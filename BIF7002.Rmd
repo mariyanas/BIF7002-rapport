@@ -83,37 +83,70 @@ Nous présenterons les raisons pour lesquelles la complexité de la structure de
 
 # ADN et protéines
 
-Les structures d'ADN et de protéines sont généralement plus faciles à prédire que celles de l'ARN puisqu'elles présentent des structures beaucoup plus consistantes et rigides. En effet, l'ADN présente une structure uniforme de double hélice très prévisible qui consistent d'une série répétitive de paires de bases nucléotidiques suivant des règles d'appariement Watson-Crick (A-T, C-G). Elle suit des règles de géométrie simples qui rendent sa structure stable à l'aide d'interactions hydrophobes et de Van der Waals. De ce fait, la stabilité de la structure de l'ADN permet la conservation de l'information génétique. Ses propriétés de superposition, donc l’empilement des bases azotées les unes sur les autres au centre de la double hélice, facilitemt grandement la modélisation. [@dna]
+Les structures d'ADN et de protéines sont généralement plus faciles à prédire que celles de l'ARN puisqu'elles présentent des structures beaucoup plus consistantes et rigides. En effet, l'ADN présente une structure uniforme de double hélice très prévisible qui consistent d'une série répétitive de paires de bases nucléotidiques suivant des règles d'appariement Watson-Crick (A-T, C-G). Elle suit des règles de géométrie simples qui rendent sa structure stable à l'aide d'interactions hydrophobes et de Van der Waals. De ce fait, la stabilité de la structure de l'ADN permet la conservation de l'information génétique. Ses propriétés de superposition, donc l’empilement des bases azotées les unes sur les autres au centre de la double hélice (Figure \@ref(fig:geometryOfDNAAndRNA) (gauche)), facilitent grandement la modélisation. [@dna]
+
+```{r geometryOfDNAAndRNA, fig.align="center", fig.show="hold", fig.cap="(gauche) Géométrie de l'ADN [@DNAGeometry]; (droit) Géométrie de l'ARN [@RNAGeometry]", echo=FALSE, out.width='50%'}
+knitr::include_graphics("DNA_Geometry.png")
+knitr::include_graphics("RNA_Geometry.png")
+```
 
 Les structures de protéines, quant à eux, bénéficient d'un large éventail de données disponibles. La Protein Data Bank (PDB) contient plus de 200 000 structures de protéines annotées, alors qu'il en existe seulement 10 000 pour les structures de l'ARN. Le repliement des protéines est plus prévisible que celui de l'ARN, se basant sur la séquence primaire de la chaîne d'acides aminés. De plus, les protéines contiennent de l'information évolutif, aidant fortement les algorithmes de prédiction à inférer les séquences d'acides aminés en utilisant des alignements de séquences multiples. [@protein] Les ARNs sont moins annotés que les protéines, surtout puisqu'il est chimiquement plus difficile d'entreprendre des expériences de cristallographie pour définir leurs structures. [@RNAFunctionFollowsForm]
 
 # Structure d'ARN
-La modélisation de l’ARN est difficile, notamment à cause de sa structure. Elle présente une seule chaîne de nucléotides, donc nous perdons les propriétés de superposition offertes par l’ADN (plus possible d’avoir une structure constante de double hélice parfaite). Cette chaîne de nucléotides permet aux interactions d'appariement de bases de se produire entre les nucléotides d'un même brin. Les motifs structurels, comme les hélices et les boucles, sont des éléments de structure secondaire assemblés à partir de paires de bases Watson-Crick (A-U et C-G) et de paires de bases wobble (G-U). [@RNAStructures2] 
+La modélisation de l’ARN est difficile, notamment à cause de sa structure. Elle présente une seule chaîne de nucléotides, donc nous perdons les propriétés de superposition (Figure \@ref(fig:geometryOfDNAAndRNA) (droite)) offertes par l’ADN (plus possible d’avoir une structure constante de double hélice parfaite). Cette chaîne de nucléotides permet aux interactions d'appariement de bases de se produire entre les nucléotides d'un même brin. Les motifs structurels, comme les hélices et les boucles, sont des éléments de structure secondaire assemblés à partir de paires de bases Watson-Crick (A-U et C-G) (Figure \@ref(fig:basePairs) (gauche)) et de paires de bases wobble (G-U). [@RNAStructures2] 
 
-Bien que l’appariement des bases soit souvent considéré en termes de paires Watson-Crick, d’autres appariements sont également possibles. [@RNAMotifs] Les paires de bases non-Watson-Crick impliquent différentes interactions nucléotidiques de l’appariement Watson-Crick. Les éléments structuraux secondaires s'assemblent principalement à l'aide de paires de bases non-Watson-Crick pour former des structures tertiaires, tels que des kink-turns ou A-mineurs.
+```{r basePairs, fig.align="center", fig.show="hold", fig.cap="(gauche) Paires de bases Watson-Crick d'ARN [@RNACanonical]; (droit) Example d'une paire de base non-Watson-Crick, W-C/Hoogsteen  [@RNANonCanonical]", echo=FALSE, out.width='50%'}
+knitr::include_graphics("RNA_canonical.png")
+knitr::include_graphics("RNA_non_canonical.png")
+```
+
+Bien que l’appariement des bases soit souvent considéré en termes de paires Watson-Crick, d’autres appariements sont également possibles. [@RNAMotifs] Les paires de bases non-Watson-Crick impliquent différentes interactions nucléotidiques de l’appariement Watson-Crick. Les éléments structuraux secondaires s'assemblent principalement à l'aide de paires de bases non-Watson-Crick (Figure \@ref(fig:basePairs) (droite)) pour former des structures tertiaires, tels que des kink-turns ou A-mineurs.
 
 Ces structures, appelées modules d’ARN, sont caractérisées par des ensembles de paires de bases non-Watson-Crick orientées et ordonnées. Les paires de bases non-Watson-Crick jouent un rôle important dans la stabilisation de la structure tertiaire de l’ARN. Les modules ont aussi d'autres rôles fonctionnels importants dans les molécules d'ARN, comme servir de sites de liaison aux protéines et à l'ARN. [@RNAStructures] 
 
+Les modules apparaissent de façon récurrente dans différents ARN. On suppose que le même module présent dans différentes structures d'ARN a une importance fonctionnelle. [@MotifSignificance] Par example, Il y a 83 957 (trouvé sur CaRNAval (Figure \@ref(fig:module-example2))) occurrences du module représenté dans la Figure \@ref(fig:module-example) (gauche), comme par exemple dans le ribosome 1VQM (Figure \@ref(fig:module-example) (droite)).  
+
+
+```{r module-example, fig.align="center", fig.show="hold", fig.cap="(gauche) Le module d'ARN, RIN-2 [@RIN-17]; (droite) Le ribosome 1VQM tirée du PDB [@1VQM]", echo=FALSE, out.width='35%'}
+knitr::include_graphics("RIN-2.png")
+knitr::include_graphics("1VQM.png")
+```
+
+```{r module-example2, fig.align="center", fig.cap="Les occurrences du RIN-2 (A-Minor Type I) [@RIN-17]", echo=FALSE, out.width='75%'}
+knitr::include_graphics("instances.png")
+```
 L'ARN peut également interagir entre lui (ARN-ARN) ou avec d'autres molécules (ARN-ADN, ARN-protéines), formant des structures quaternaires, comme les ribosomes ou les spliceosomes. [@RNAStructures2]
 
 - add why these characteristics/properties make RNA hard to model/predict
 
 # Représentations des structures de l'ARN
-Une façon de modéliser la structure secondaire de l'ARN est d'utiliser la notation Dot-Bracket du [ViennaRNA package](https://www.tbi.univie.ac.at/RNA/ViennaRNA/doc/html/index.html). Dans cette notation, les nucléotides appariés sont représentés entre *brackets* `()` - ou «parenthèses» - et non appariés par des *dots* `.` - ou «points». (Figure \@ref(fig:rna-3E5C)) 
+Une façon de modéliser la structure secondaire de l'ARN est d'utiliser la notation Dot-Bracket du package [ViennaRNA](https://www.tbi.univie.ac.at/RNA/ViennaRNA/doc/html/index.html). Dans cette notation, les nucléotides appariés sont représentés par des *brackets* `()` - ou «parenthèses» - et non appariés par des *dots* `.` - ou «points». Par example, la notation Dot-Bracket du modèle d'ARN, 3E5C, ressemble à ceci : 
 
-- add this GUUCCCGAAAGGAUGGCGGAAACGCCAGAUGCCUUGUAACCGAAAGGGGGAAU ((((((..((((.(((((....)))))....))))....((....))))))))
-- explain figure, remember to cite
-
-```{r rna-3E5C, fig.show="hold", fig.cap="RNA structure 3E5C drawn using [ViennaRNA Web Services](http://rna.tbi.univie.ac.at/forna/)", echo=FALSE, out.width='50%'}
-knitr::include_graphics("rna_3E5C_3D.jpeg")
-knitr::include_graphics("rna_3E5C.png")
+```
+GUUCCCGAAAGGAUGGCGGAAACGCCAGAUGCCUUGUAACCGAAAGGGGGAAU 
+((((((..((((.(((((....)))))....))))....((....))))))))
 ```
 
-Cependant, l'ARN ?goes beyond? sa structure secondaire. L'ARN est capable de former des structures tertiaires impliquant des paires de bases non-Watson-Crick.  Ces structures tertiaires peuvent être représentées sous forme de graphes. Le modèle Leontis-Westhof classe les configurations géométriques des paires de bases en 12 classes selon les arêtes impliquées. [@Leontis-Westhof]
+The image on the right of Figure \@ref(fig:rna-3E5C) represents the drawn secondary structure. We used ViennaRNA Web Services to visualize the structure. The parentheses represent paired bases (green) and the dots represent unpaired regions such as multiloops (red), interior Loops (yellow) and hairpin loops (blue.)
 
-- remember to explain Leontis-Westhof farther, maybe include an image
-- and how its relevant to the softwares below. CaRNAval and RNA 3D Motif Atlas are two softwares that identify RNA modules using graphs.
 
+```{r rna-3E5C, fig.align="center", fig.show="hold", fig.cap="(gauche) La structure secondarie de l'ARN 3E5C dessinée en utilisant [ViennaRNA Web Services](http://rna.tbi.univie.ac.at/forna/); (droit) La structure tertiare de l'ARN 3E5C tirée du PDB [@3E5C]", echo=FALSE, out.width='50%'}
+knitr::include_graphics("rna_3E5C.png")
+knitr::include_graphics("rna_3E5C_3D.jpeg")
+```
+
+
+Cependant, l'ARN ?goes beyond? sa structure secondaire. L'ARN est capable de former des structures tertiaires impliquant des paires de bases non-Watson-Crick, as shown by the green dots in Figure \@ref(fig:rna-3E5C) (droit). Ces structures tertiaires peuvent être représentées sous forme de graphes. 
+
+Le modèle Leontis-Westhof classe les configurations géométriques des paires de bases en 12 classes selon les arêtes impliquées. [@Leontis-Westhof] 
+
+- In Figure \@ref(fig:RIN-17), if we take nodes 4 and 6 for example, we can see that the edge that is formed is tSS. resulting in labeled graphs that encode both the presence and the geometric nature of interactions.
+
+```{r RIN-17, fig.align="center", fig.show="hold", fig.cap="RIN-17 tirée du CaRNAval [@RIN-17]", echo=FALSE, out.width='30%'}
+knitr::include_graphics("rin-17.png")
+```
+
+- explain the relevance to CaRNAval and RNA 3D Motif Atlas
 
 # Approches informatiques de la représentation d'ARN
 
