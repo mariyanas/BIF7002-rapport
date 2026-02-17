@@ -177,10 +177,13 @@ Puisqu'il n'y a présentement pas de données thermodynamiques associées aux pa
   
 Pour tester les outils et comprendre leurs différences, nous avons décidé de comparer les différentes bases de données comprises dans Bayespairing2. Nous avons essayé d'utiliser celle de cantaloops_carnaval_v5, mais elle générait à chaque reprise l'erreur *IndexError: list index out of range*. Donc, pour notre expérience, nous allons comparer les différents résultats que peuvent émettre les bases de données intégrées dans l'outil. Celles-ci comprennent:  
   
-- RELIABLE: Un sous-ensemble de 60 modules provenant du [RNA 3D Motif Atlas]() avec le plus grand nombre d'occurrences et la plus grande variation de séquence.  
+- RELIABLE: Un sous-ensemble de 60 modules provenant du [RNA 3D Motif Atlas]() avec le plus grand nombre d'occurrences et la plus grande variation de séquence.   
+  
 - rna3dmotif: Un ensemble de données des 75 modules les plus récurrents dans la PDB. Recherche entreprise avec [rna3dmotif]().  
-- ALL: Un ensemble de tous les modules qui ont pu être convertis des modèles de 3D  Motif Atlas à ceux de BayesPairing2 (426 au total)  
-- tdma388_KT: Un ensemble spécialisé des modules ayant un motif Kink-Turn.  
+  
+- ALL: Un ensemble de tous les modules qui ont pu être convertis des modèles de 3D  Motif Atlas à ceux de BayesPairing2 (426 au total)    
+   
+- tdma388_KT: Un ensemble spécialisé des modules ayant un motif Kink-Turn.    
 
 Puisque nous avons uniquement identifié les séquences de nucléotides, BayesPairing2 a entrepris un échantionllonage non redondant des structures secondaires de l'ensemble complet en utilisant RNAsubopt. La librairie htd entreprend la décomposition arborescente des modules et les probabilités conditionnelles sont apprises à l'aide de pgmpy. [@bayes]
 
