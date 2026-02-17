@@ -153,8 +153,16 @@ knitr::include_graphics("rin-17.png")
 ## CaRNAval
 [CaRNAval](https://carnaval.cbe.uqam.ca/) utilise une méthodologie basée sur les graphes pour extraire tous les Réseaux Récurrents d'Interaction (RINs) de la PDB. Il cherche tous les patrons des paires de bases et trouve les modifications et réseaux associés.
 
-## RNA 3D Motif Atlas
-[RNA Motif Atlas](https://rna.bgsu.edu/rna3dhub/motifs)
+## RNA 3D Hub  
+Le RNA 3D Hub est une meta base de donnée spécialisée développée par le *BGSU RNA Structural Bioinformatics Group* à l'université Bowling Green State. Il est organisé en plusieurs outils et bases de données permettant une analyse et une compréhension assidue des structures d'ARN, englobé dans un seul endroit. Il est constitué de 4 catégories:  
+  
+- [RNA Structure Atlas](https://rna.bgsu.edu/rna3dhub/pdb) contient des annotations d'appariement et d'empilement de bases, ainsi que d’interactions base-squelette dans les ARN ayant des structures 3D qui contiennent des fichiers PDB. Ces annotations sont générées par l'outil FR3D (Find RNA 3D), un programme qui cherche des structures 3D géométriquement et symboliquement, lancé par Sarver et al. en 2008. [@fr3d]. Il est mis à jour hebdomadairement.  
+  
+- [Representative Sets](https://rna.bgsu.edu/rna3dhub/nrlist) est une liste non-redondante de structures 3D. La PDB contient plusieurs structures identiques ou très similaires pour la même molécule du même organisme. Donc, le RNA 3D Hub regroupe dans cette liste des classes d'équivalence de séquences/structures et choisit la meilleure version pour représenter le groupe. Elle est utile lorsqu'il faut entraîner des données ou faire une recherche sur la base de donnée de structures 3D d'ARN entière. 
+  
+- [RNA Motif Atlas](https://rna.bgsu.edu/rna3dhub/motifs) est une large collection de motifs d'épingle à cheveux, interne, de jonctions et de boucles multi-hélice extraits des Representative Sets des structures 3D d'ARN en utilisant FR3D à nouveau. Des groupes de motifs similaires en termes de géométrie et d’interactions d'appariement de bases sont crées par regroupement hiérarchique. Ces derniers sont définis par des identifiants uniques et stables.[@atlas]  
+  
+- [Resources]() contient divers autres outils, dont WebFR3D, JAR3D et R3D.
 
 ## BayesPairing2
 [BayesPairing2](https://jwgitlab.cs.mcgill.ca/sarrazin/rnabayespairing2)
