@@ -1,7 +1,5 @@
 ---
-title: "Motifs complexes d'ARN :<br> 
-<span style='font-size: 28px;'>la théorie pour les trouver et les organiser, <br>
-la pratique pour les identifier et les prédire</span>"
+title: "Motifs complexes d'ARN :<br> <span style='font-size: 28px;'>la théorie pour les trouver et les organiser, <br>la pratique pour les identifier et les prédire</span>"
 author: "<span style='color:black;'>Orateur : Vladimir Reinharz <br> Écrit par : </span>"
 date: "BIO7002 - Hiver 2026 <br> 2026-02-17"
 output:
@@ -177,7 +175,7 @@ Une façon de prédire la structure secondaire de l'ARN est d'utiliser la progra
 # Approches informatiques de la représentation d'ARN
 
 ## CaRNAval
-[CaRNAval](https://carnaval.cbe.uqam.ca/) utilise une méthodologie basée sur les graphes pour extraire tous les Réseaux Récurrents d'Interaction (RINs) de la PDB. Il cherche tous les patrons des paires de bases et trouve les modifications et réseaux associés.
+[CaRNAval](https://carnaval.cbe.uqam.ca/) est un outil crée par Vladimir Reinharz et al. qui utilise une méthodologie basée sur les graphes pour extraire tous les Réseaux Récurrents d'Interaction (RINs) provenant de bases de données des structures 3D d'ARN. Il cherche tous les patrons des paires de bases et trouve les modifications et réseaux associés. Les RINs se distinguent des modules d’interaction (ceux qui connectent deux éléments différents de structure secondaire, comme le A-minor Type I/II) par le fait qu'ils ne contiennent aucune information sur la séquence. Ils expliquent plutôt les interactions des nucléotides ainsi que leur nature. Un seul RIN peut donc être associé à plusieurs modules d'interaction.
 
 ## RNA 3D Hub  
 Le RNA 3D Hub est une meta base de donnée spécialisée développée par le *BGSU RNA Structural Bioinformatics Group* à l'université Bowling Green State. Il est organisé en plusieurs outils et bases de données permettant une analyse et une compréhension assidue des structures d'ARN, englobé dans un seul endroit. Il est constitué de 4 catégories:  
@@ -213,8 +211,10 @@ Puisque nous avons uniquement identifié les séquences de nucléotides, BayesPa
 
 Les scores des modules représentent un ratio de rapport de vraisemblance reflétant la probabilité de la séquence dépendamment du module. Un score élevé indique une très grande similarité à un motif 3D connu dans l'ensemble de donnée utilisé. Nous avons ensuite identifié les motifs visuellement (normalement il est possible de mapper les modules à leurs motifs, mais nous avons rencontré un problème avec certains scripts que ne n'avons malheureusement pas pu troubleshoot). Nous les avons aussi validés en rentrant les séquences sur [JAR3D](), un autre outil qui peut identifier des motifs dans des séquences d'ARN.
 
-## Jeux de données  
-*GUAA tetraloop mutant of Sarcin/Ricin domain from E. Coli 23 S rRNA* (PDB 1MSY)  
+## Jeux de données et résultats  
+Trois séquences ont été choisies via PDB.  
+  
+*GUAA tetraloop mutant of Sarcin/Ricin domain from E. Coli 23 S rRNA* ([PDB 1MSY](https://www.rcsb.org/structure/1MSY))  
 `>1MSY_1|Chain A|SARCIN/RICIN DOMAIN FROM 23 S RRNA|null`  
 `UGCUCCUAGUACGUAAGGACCGGAGUG`  
 
@@ -228,7 +228,11 @@ knitr::include_graphics(c("1MSY_rel.svg",
                           "1MSY_atlas.svg",
                           "1MSY_all.svg"))
 ```  
-
+   
+    
+Dans la figure ci-haut, nous pouvons voir que la structure diffère selon l'ensemble de données utilisé. L'ensemble `RELIABLE` n'a pas pu démontrer le fameux GUAA tetraloop de la séquence étudiée. Ci-dessous se retrouve le score calculé par BayesPairing2 pour chacun des modules. Remarquons que les modules 33 et 123 inférés par les ensembles `rna3dmotif_jan2025` et `ALL` respectivement réfèrent à la même sous-structure, à un même motif épingle à cheveux. Par contre, c'est uniquement la deuxième structure qui démontre un motif Sarcin/Ricin G-Bulge. Nous pouvons conclure, selon les résultats obtenus, que la structure inféré par l'ensemble `rna3dmotif_jan2025` est le plus significatif. De plus, c'est celui qui donne le plus haut score à ses deux modules.   
+   
+   
 ```{r, echo=FALSE, cache=FALSE, warning=FALSE}
 dt1<-data.frame(BD = c("RELATIVE", "RELATIVE", "RNA 3D Motif Atlas", "RNA 3D Motif Atlas", "ALL", "ALL", "ALL"),
                 MODULE = c(55, 259, 33, 139, 123, 481, 677),
@@ -240,12 +244,13 @@ dt1<-data.frame(BD = c("RELATIVE", "RELATIVE", "RNA 3D Motif Atlas", "RNA 3D Mot
 ```{r, echo=FALSE}
 datatable(dt1)
 ```  
-
-*61 nt human Hepatitis B virus epsilon pre-genomic RNA* (PDB 6VAR)  
+  
+    
+*61 nt human Hepatitis B virus epsilon pre-genomic RNA* ([PDB 6VAR](https://www.rcsb.org/structure/6VAR))  
 `>6VAR_1|Chain A|RNA (61-MER)|Hepatitis B virus (10407)`  
-`GGUUCAUGUCCUACUGUUCAAGCCUCCAAGCUGUGCCUUGGGUGGCUUUGGGGCAUGGACC`
-
-
+`GGUUCAUGUCCUACUGUUCAAGCCUCCAAGCUGUGCCUUGGGUGGCUUUGGGGCAUGGACC`  
+  
+  
 ```{r 6var1, fig.align='center', echo=FALSE, out.width=350, out.height=400}
 knitr::include_graphics("6VAR_rel.svg")
 
@@ -256,19 +261,25 @@ knitr::include_graphics("6VAR_atlas.svg")
 ``` 
 ```{r 6var3, fig.align='center', fig.cap=("De haut en bas: Structure 2D de la séquence inférée à l'aide des ensembles RELIABLE, rna3dmotif_jan2025 et ALL, respectivement."), echo=FALSE, out.width=350, out.height=400}
 knitr::include_graphics("6VAR_all.svg")
-```  
-  
+```   
+    
+     
+Dans la figure ci-haut, remarquons que seules la première et la dernière structure démontrent un K-turn, avec les modules 247 et 557 respectivement. Par contre, ils ont chacun obtenu un score négatif par BayesPairing2. Même en rentrant la séquence sur JAR3D en incluant la structure secondaire, celui-ci ne distingue pas de Kink. De plus, l'épingle à cheveux sont les mêmes pour les seconde et troisième structures, mais diffère pour la première. Il est difficile de déterminer quels représentation est la meilleure, car les résultats obtenus ne sont pas ce que l'on cherchait. Par contre, la boucle interne indiqué par le module 111 dans la seconde structure est celui qui a obtenu le meilleur score.    
+   
+   
 ```{r, echo=FALSE, cache=FALSE, warning=FALSE}
 dt2 = read_excel("6var.xlsx")
 ``` 
 ```{r, echo=FALSE}
 datatable(dt2)
-```  
-
-*Crystal structure of an E. coli thi-box riboswitch bound to thiamine pyrophosphate, manganese ions* (PDB 2HOJ)  
+```    
+  
+  
+*Crystal structure of an E. coli thi-box riboswitch bound to thiamine pyrophosphate, manganese ions* ([PDB 2HOJ](https://www.rcsb.org/structure/2HOJ))  
 `>2HOJ_1|Chain A|thi-box riboswitch|null`  
 `GCGACUCGGGGUGCCCUUCUGCGUGAAGGCUGAGAAAUACCCGUAUCACCUGAUCUGGAUAAUGCCAGCGUAGGGAAGUCGCA`  
-
+ 
+   
 ```{r ribo1, fig.show="hold", echo=FALSE, out.width=700, fig.align='center', out.height=300}
 knitr::include_graphics("2HOJ_rel.svg")
 
@@ -279,8 +290,12 @@ knitr::include_graphics("2HOJ_atlas.svg")
 ```
 ```{r ribo3, fig.show="hold", fig.cap=c("De haut en bas: Structure 2D de la séquence inférée à l'aide des ensembles RELIABLE, rna3dmotif_jan2025 et ALL, respectivement."), echo=FALSE, out.width=580, fig.align='center', out.height=250}
 knitr::include_graphics("2HOJ_all.svg")
-```
-  
+```   
+   
+   
+Dans la figure ci-haut, nous voyons clairement une jonction reliant trois tiges dans chacune des structures inférées. Par contre, nous nous attendions à avoir un module défini pour la jonction, ce qui n'est pas le cas. En rentrant la séquence sur RNAFold, elle ressemble plutôt à celle inférée par `rna3dmotif_jan2025`. La structure inférée par `ALL` nous surprend par son module 651, qui semble être un K-Turn ayant eu un score très élevé, soit de 11,732! En effet, cette structure est celle qui a reçu les plus hauts scores pour ses modules. Cependant, cet ensemble de données contient des modules qui se retrouvent seulement qu'une fois dans le 3D Motif Atlas, donc nous devons interpréter ces résultats avec précaution. Chacune des structures contiennent des motifs épingles à cheveux et plusieurs boucles internes. Même si les scores des modules de la deuxième structure inférée sont moins élevés, elle semble être la plus significative, en la comparant à celle trouvée avec RNAFold.    
+    
+   
 ```{r, echo=FALSE, cache=FALSE, warning=FALSE}
 dt3 = read_excel("ribo.xlsx")
 ``` 
