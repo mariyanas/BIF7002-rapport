@@ -1,8 +1,10 @@
 ---
-title: "Motifs complexes d'ARN"
+title: "Motifs complexes d'ARN :<br> 
+<span style='font-size: 28px;'>la théorie pour les trouver et les organiser, <br>
+la pratique pour les identifier et les prédire</span>"
 author: "<span style='color:black;'>Orateur : Vladimir Reinharz <br> Écrit par : </span>"
 date: "BIO7002 - Hiver 2026 <br> 2026-02-17"
-output: 
+output:
     bookdown::html_document2:
       number_sections: true
       toc: true
@@ -14,6 +16,8 @@ output:
 bibliography: references.bib 
 csl: vancouver.csl
 link-citations: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 <style type="text/css">
@@ -39,7 +43,7 @@ body{ /* Normal  */
 }
 
 h1.title {
-  font-size: 34px;
+  font-size: 36px;
   text-align: center;
 }
 
@@ -63,7 +67,7 @@ h1 { /* Header 1 */
 }
 
 h2 { /* Header 2 */
-    font-size: 18px;
+    font-size: 20px;
 }
 
 h3 { /* Header 3 */
@@ -79,74 +83,96 @@ La réussite de la modélisation structurelle informatique dépend sur des donn�
 
 Nous présenterons les raisons pour lesquelles la complexité de la structure de l'ARN rend sa prédiction difficile, ainsi que les différents outils existants pour l'identifier et la prédire.
 
-
-
 # ADN et protéines
 
 Les structures d'ADN et de protéines sont généralement plus faciles à prédire que celles de l'ARN puisqu'elles présentent des structures beaucoup plus consistantes et rigides. En effet, l'ADN présente une structure uniforme de double hélice très prévisible qui consistent d'une série répétitive de paires de bases nucléotidiques suivant des règles d'appariement Watson-Crick (A-T, C-G). Elle suit des règles de géométrie simples qui rendent sa structure stable à l'aide d'interactions hydrophobes et de Van der Waals. De ce fait, la stabilité de la structure de l'ADN permet la conservation de l'information génétique. Ses propriétés de superposition, donc l’empilement des bases azotées les unes sur les autres au centre de la double hélice (Figure \@ref(fig:geometryOfDNAAndRNA) (gauche)), facilitent grandement la modélisation. [@dna]
 
-```{r geometryOfDNAAndRNA, fig.align="center", fig.show="hold", fig.cap="(gauche) Géométrie de l'ADN [@DNAGeometry]; (droit) Géométrie de l'ARN [@RNAGeometry]", echo=FALSE, out.width='50%'}
+```{r geometryOfDNAAndRNA, fig.align="center", fig.show="hold", fig.cap="(gauche) Géométrie de l'ADN [@DNAGeometry]; (droite) Géométrie de l'ARN [@RNAGeometry]", echo=FALSE, out.width='50%'}
 knitr::include_graphics("DNA_Geometry.png")
 knitr::include_graphics("RNA_Geometry.png")
 ```
 
 Les structures de protéines, quant à eux, bénéficient d'un large éventail de données disponibles. La Protein Data Bank (PDB) contient plus de 200 000 structures de protéines annotées, alors qu'il en existe seulement 10 000 pour les structures de l'ARN. Le repliement des protéines est plus prévisible que celui de l'ARN, se basant sur la séquence primaire de la chaîne d'acides aminés. De plus, les protéines contiennent de l'information évolutif, aidant fortement les algorithmes de prédiction à inférer les séquences d'acides aminés en utilisant des alignements de séquences multiples. [@protein] Les ARNs sont moins annotés que les protéines, surtout puisqu'il est chimiquement plus difficile d'entreprendre des expériences de cristallographie pour définir leurs structures. [@RNAFunctionFollowsForm]
 
-# Structure d'ARN
-La modélisation de l’ARN est difficile, notamment à cause de sa structure. Elle présente une seule chaîne de nucléotides, donc nous perdons les propriétés de superposition (Figure \@ref(fig:geometryOfDNAAndRNA) (droite)) offertes par l’ADN (plus possible d’avoir une structure constante de double hélice parfaite). Cette chaîne de nucléotides permet aux interactions d'appariement de bases de se produire entre les nucléotides d'un même brin. Les motifs structurels, comme les hélices et les boucles, sont des éléments de structure secondaire assemblés à partir de paires de bases Watson-Crick (A-U et C-G) (Figure \@ref(fig:basePairs) (gauche)) et de paires de bases wobble (G-U). [@RNAStructures2] 
+# ARN
+## L'importance de l'ARN
+Jusqu'aux années 1980, l'ARN était largement considéré comme un simple intermédiaire entre l'ADN et les protéines. Puisque plus de 95 % du génome ne code pas pour des protéines, ces régions produisant des ARN non codants (ARNnc) étaient souvent considérées comme *junk DNA* - ou de «l'ADN indésirable ». Cependant, cette perspective a maintenant changé. Nous savons aujourd’hui que les ARNnc sont essentiels et jouent des rôles dans la régulation de l’expression des gènes, le remodelage de la chromatine et divers processus cellulaires.
 
-```{r basePairs, fig.align="center", fig.show="hold", fig.cap="(gauche) Paires de bases Watson-Crick d'ARN [@RNACanonical]; (droit) Example d'une paire de base non-Watson-Crick, W-C/Hoogsteen  [@RNANonCanonical]", echo=FALSE, out.width='50%'}
+L'ARN est aussi impliqué dans plusieurs maladies. La dérégulation des ARNnc a été associée au cancer, aux troubles neurologiques et aux infections virales telles que la COVID-19. L'amélioration de nos connaissances sur l'ARN peut nous aider à mieux comprendre ces maladies. 
+
+Les approches basées sur l'ARN sont appliquées dans plusieurs domaines, par exemple, dans l’agriculture, l’interférence par l’ARN est utilisée pour développer des traits souhaitables, tels que des noix et des arachides non allergènes; en médecine, les vaccins à ARNm ont été développés en réponse à la pandémie de COVID-19. [@RNAIsImportant]
+
+En déterminant la structure de l'ARN, on peut mieux comprendre la fonction de cette molécule essentielle.
+
+
+## Structure d'ARN
+La modélisation de l’ARN est difficile, notamment à cause de sa structure. RNA has a more flexible backbone than proteins, which makes its structure more dynamic and can change shape while performing biological tasks. Elle présente une seule chaîne de nucléotides, donc nous perdons les propriétés de superposition (Figure \@ref(fig:geometryOfDNAAndRNA) (droite)) offertes par l’ADN (plus possible d’avoir une structure constante de double hélice parfaite). Cette chaîne de nucléotides permet aux interactions d'appariement de bases de se produire entre les nucléotides d'un même brin. Les motifs structurels, comme les hélices et les boucles, sont des éléments de structure secondaire assemblés à partir de paires de bases Watson-Crick (A-U et C-G) (Figure \@ref(fig:basePairs) (gauche)) et de paires de bases wobble (G-U). [@RNAStructures2] 
+
+```{r basePairs, fig.align="center", fig.show="hold", fig.cap="(gauche) Paires de bases Watson-Crick d'ARN [@RNACanonical]; (droite) Example d'une paire de base non-Watson-Crick, W-C/Hoogsteen  [@RNANonCanonical]", echo=FALSE, out.width='40%'}
 knitr::include_graphics("RNA_canonical.png")
 knitr::include_graphics("RNA_non_canonical.png")
 ```
 
 Bien que l’appariement des bases soit souvent considéré en termes de paires Watson-Crick, d’autres appariements sont également possibles. [@RNAMotifs] Les paires de bases non-Watson-Crick impliquent différentes interactions nucléotidiques de l’appariement Watson-Crick. Les éléments structuraux secondaires s'assemblent principalement à l'aide de paires de bases non-Watson-Crick (Figure \@ref(fig:basePairs) (droite)) pour former des structures tertiaires, tels que des kink-turns ou A-mineurs.
 
-Ces structures, appelées modules d’ARN, sont caractérisées par des ensembles de paires de bases non-Watson-Crick orientées et ordonnées. Les paires de bases non-Watson-Crick jouent un rôle important dans la stabilisation de la structure tertiaire de l’ARN. Les modules ont aussi d'autres rôles fonctionnels importants dans les molécules d'ARN, comme servir de sites de liaison aux protéines et à l'ARN. [@RNAStructures] 
+Ces structures, appelées modules d’ARN, sont caractérisées par des ensembles de paires de bases non-Watson-Crick orientées et ordonnées. Les paires de bases non-Watson-Crick sont plus faibles que les bases Watson-Crick mais ils jouent un rôle important dans la stabilisation de la structure tertiaire de l’ARN. Les modules ont aussi d'autres rôles fonctionnels importants dans les molécules d'ARN, comme servir de sites de liaison aux protéines et à l'ARN. [@RNAStructures] 
 
 Les modules apparaissent de façon récurrente dans différents ARN. On suppose que le même module présent dans différentes structures d'ARN a une importance fonctionnelle. [@MotifSignificance] Par example, Il y a 83 957 (trouvé sur CaRNAval (Figure \@ref(fig:module-example2))) occurrences du module représenté dans la Figure \@ref(fig:module-example) (gauche), comme par exemple dans le ribosome 1VQM (Figure \@ref(fig:module-example) (droite)).  
 
 
-```{r module-example, fig.align="center", fig.show="hold", fig.cap="(gauche) Le module d'ARN, RIN-2 [@RIN-17]; (droite) Le ribosome 1VQM tirée du PDB [@1VQM]", echo=FALSE, out.width='35%'}
+```{r module-example, fig.align="center", fig.show="hold", fig.cap="(gauche) Le module d'ARN, RIN-2 [@RIN-2]; (droite) Le ribosome 1VQM tirée du PDB [@1VQM]", echo=FALSE, out.width='30%'}
 knitr::include_graphics("RIN-2.png")
 knitr::include_graphics("1VQM.png")
 ```
 
-```{r module-example2, fig.align="center", fig.cap="Les occurrences du RIN-2 (A-Minor Type I) [@RIN-17]", echo=FALSE, out.width='75%'}
+```{r module-example2, fig.align="center", fig.cap="Les occurrences du RIN-2 (A-Minor Type I) [@RIN-2]", echo=FALSE, out.width='70%'}
 knitr::include_graphics("instances.png")
 ```
 L'ARN peut également interagir entre lui (ARN-ARN) ou avec d'autres molécules (ARN-ADN, ARN-protéines), formant des structures quaternaires, comme les ribosomes ou les spliceosomes. [@RNAStructures2]
 
-- add why these characteristics/properties make RNA hard to model/predict
-
 # Représentations des structures de l'ARN
-Une façon de modéliser la structure secondaire de l'ARN est d'utiliser la notation Dot-Bracket du package [ViennaRNA](https://www.tbi.univie.ac.at/RNA/ViennaRNA/doc/html/index.html). Dans cette notation, les nucléotides appariés sont représentés par des *brackets* `()` - ou «parenthèses» - et non appariés par des *dots* `.` - ou «points». Par example, la notation Dot-Bracket du modèle d'ARN, 3E5C, ressemble à ceci : 
+Une façon de modéliser la structure secondaire de l'ARN est d'utiliser la notation Dot-Bracket du package [ViennaRNA](https://www.tbi.univie.ac.at/RNA/ViennaRNA/doc/html/index.html). Dans cette notation, les nucléotides appariés sont représentés par des *brackets* `()` - ou «parenthèses» - et non appariés par des *dots* `.` - ou «points». Par example, la notation Dot-Bracket du modèle d'ARN 3E5C ressemble à ceci : 
 
 ```
 GUUCCCGAAAGGAUGGCGGAAACGCCAGAUGCCUUGUAACCGAAAGGGGGAAU 
 ((((((..((((.(((((....)))))....))))....((....))))))))
 ```
 
-The image on the right of Figure \@ref(fig:rna-3E5C) represents the drawn secondary structure. We used ViennaRNA Web Services to visualize the structure. The parentheses represent paired bases (green) and the dots represent unpaired regions such as multiloops (red), interior Loops (yellow) and hairpin loops (blue.)
+La Figure \@ref(fig:rna-3E5C) (gauche) représente une visualisation de la structure secondaire. Les parenthèses correspondent aux bases appariées (vert) et les points correspondent aux régions non appariées telles que les *multiloops* (rouge), les boucles internes (jaune) et les épingle à cheveux (bleu).
 
 
-```{r rna-3E5C, fig.align="center", fig.show="hold", fig.cap="(gauche) La structure secondarie de l'ARN 3E5C dessinée en utilisant [ViennaRNA Web Services](http://rna.tbi.univie.ac.at/forna/); (droit) La structure tertiare de l'ARN 3E5C tirée du PDB [@3E5C]", echo=FALSE, out.width='50%'}
+```{r rna-3E5C, fig.align="center", fig.show="hold", fig.cap="(gauche) La structure secondarie de l'ARN 3E5C dessinée en utilisant [ViennaRNA Web Services](http://rna.tbi.univie.ac.at/forna/); (droite) La structure tertiare de l'ARN 3E5C tirée du PDB [@3E5C]", echo=FALSE, out.width='40%'}
 knitr::include_graphics("rna_3E5C.png")
 knitr::include_graphics("rna_3E5C_3D.jpeg")
 ```
 
 
-Cependant, l'ARN ?goes beyond? sa structure secondaire. L'ARN est capable de former des structures tertiaires impliquant des paires de bases non-Watson-Crick, as shown by the green dots in Figure \@ref(fig:rna-3E5C) (droit). Ces structures tertiaires peuvent être représentées sous forme de graphes. 
+Cependant, l'ARN va au-delà sa structure secondaire. L'ARN est capable de former des structures tertiaires impliquant des paires de bases non-Watson-Crick, montrés par les points verts dans la Figure \@ref(fig:rna-3E5C) (droite). Ces structures tertiaires peuvent être représentées sous forme de graphes. 
 
-Le modèle Leontis-Westhof classe les configurations géométriques des paires de bases en 12 classes selon les arêtes impliquées. [@Leontis-Westhof] 
+Le modèle Leontis-Westhof classe les configurations géométriques des paires de bases en 12 classes (Figure \@ref(fig:Leontis-Westhof-table)). Les interactions arête à arête (par liaisons hydrogène) entre les bases de l'ARN impliquent soit l'arête Watson-Crick, soit l'arête Hoogsteen ou soit l'arête Sugar, et les bases peuvent interagir dans l'une ou l'autre de deux orientations, cis ou trans. [@Leontis-Westhof] 
 
-- In Figure \@ref(fig:RIN-17), if we take nodes 4 and 6 for example, we can see that the edge that is formed is tSS. resulting in labeled graphs that encode both the presence and the geometric nature of interactions.
+```{r Leontis-Westhof-table, fig.align="center", fig.show="hold", fig.cap="La Classification Leontis-Westhof adapté du [NAKB](https://nakb.org/basics/bases.html)", echo=FALSE, out.width='100%'}
+knitr::include_graphics("Leontis-Westhof.jpeg")
+```
+
+Dans la Figure \@ref(fig:RIN-17), par exemple, si l'on considère les noeuds 4 et 6, on observe que l'arête reliant ces deux noeuds est tSS, ce qui indique que les orientation de liaison est 
+trans, l'arête en interaction est Sugar/Sugar et orientation du brin est paralèlle.
+
 
 ```{r RIN-17, fig.align="center", fig.show="hold", fig.cap="RIN-17 tirée du CaRNAval [@RIN-17]", echo=FALSE, out.width='30%'}
 knitr::include_graphics("rin-17.png")
 ```
 
-- explain the relevance to CaRNAval and RNA 3D Motif Atlas
+
+Cette représentation par des graphes de l'ARN est utilisée par differents programmes informatiques pour trouver des sous-graphes conservés dans un graphe arbitraire donné.
+
+
+# Approches informatiques pour identifier et prédire l'ARN
+L'identification d'un module dans une structure d'ARN fournit des informations sur la structure secondaire, qui peuvent ensuite donner des informations sur la fonction locale d'une molécule. [@RNAStructures]. Un problème fondamental est de prédire comment les séquences se replient dans un certain modèle d'énergie.
+
+Une façon de prédire la structure secondaire de l'ARN est d'utiliser la programmation dynamique en la représentant sous forme de graphe, où les paires de bases sont décrites par des paires d'indices (i, j).(draw figure). Il existe différents algorithmes pour aborder ce problème. L'un d'eux, *Base pair maximization*, consiste à trouver la structure possédant le nombre maximal de paires de bases. This approach runs in linear time (verify) mais cette approche ne peut pas représenter les *pseudonodes* car elle viole la définition récursive du score optimal (figure). Cela pose un problème en ce qui concerne la précision de la prédiction de l'ARN parce que les *pseudonodes* sont abondants dans l'ARN et sont associés à de nombreuses fonctions, notamment le décalage du cadre de lecture ribosomal, l'autoclivage et l'auto-épissage. (https://pmc.ncbi.nlm.nih.gov/articles/PMC2248259/) D'autres algorithmes, *comme maximum weighted matching*, peuvent traiter les *pseudonodes*. Cependant, il a été prouvé que la prédiction des structures secondaires à énergie libre minimale avec *pseudonodes* est un problème NP-difficile (https://pubmed.ncbi.nlm.nih.gov/32160034/), ce qui signifie qu'il ne peut pas être résolu en temps polynomial. (https://www.molgen.mpg.de/3710236/eddy2004.pdf)
+
+- cite, add figures, and explain why the recursive def is violated
 
 # Approches informatiques de la représentation d'ARN
 
@@ -165,9 +191,7 @@ Le RNA 3D Hub est une meta base de donnée spécialisée développée par le *BG
 - [Resources]() contient divers autres outils, dont WebFR3D, JAR3D et R3D.
 
 ## BayesPairing2
-[BayesPairing2](https://jwgitlab.cs.mcgill.ca/sarrazin/rnabayespairing2)
-  
-BayesPairing2 est un algorithme conçu par Roman Gendron Sarazin et al.. Cet outil assure une recherche assidue de modules de ARNs dans des séquences. Il remplace son prédécesseur, BayesPairing 1, en assurant une meilleure précision et flexibilité. Cet outil permet l'analyse des structures d'une séquence d'ARN donnée à l'aide d’échantillonnage stochastique de structures secondaires. Il utilise cette information pour ensuite identifier des sites d’insertion de modules potentiels et sélectionner des modules qui peuvent se présenter dans ce contexte structural. De sorte. cela lui permet de réduire le nombre de faux positifs et de rechercher plusieurs modules à la fois. Il peut également entreprendre des recherches à partir d'alignements de séquences.   
+[BayesPairing2](https://jwgitlab.cs.mcgill.ca/sarrazin/rnabayespairing2) est un algorithme conçu par Roman Gendron Sarazin et al.. Cet outil assure une recherche assidue de modules de ARNs dans des séquences. Il remplace son prédécesseur, BayesPairing 1, en assurant une meilleure précision et flexibilité. Cet outil permet l'analyse des structures d'une séquence d'ARN donnée à l'aide d’échantillonnage stochastique de structures secondaires. Il utilise cette information pour ensuite identifier des sites d’insertion de modules potentiels et sélectionner des modules qui peuvent se présenter dans ce contexte structural. De sorte. cela lui permet de réduire le nombre de faux positifs et de rechercher plusieurs modules à la fois. Il peut également entreprendre des recherches à partir d'alignements de séquences.   
   
 Pour les paires de bases canoniques, à l'équilibre thermodynamique, il est attendu qu'une séquence d'ARN ait un comportement stochastique et qu'elle puisse adopter quelconques de ses structures secondaires compatibles avec elle-même en respectant les règles canoniques d'appariement de bases Watson-Crick/Wobble avec une probabilité proportionnelle à son facteur de Boltzmann. Ce dernier détermine la probabilité d'un système physique occupant un état d'énergie spécifique à une température donnée.  
   
@@ -183,47 +207,90 @@ Pour tester les outils et comprendre leurs différences, nous avons décidé de 
   
 - ALL: Un ensemble de tous les modules qui ont pu être convertis des modèles de 3D  Motif Atlas à ceux de BayesPairing2 (426 au total)    
    
-- tdma388_KT: Un ensemble spécialisé des modules ayant un motif Kink-Turn.    
+- tdma388_KT: Un ensemble spécialisé des modules ayant un motif Kink-Turn. Utile lorsque nous voulons identifier spécifiquement ce motif. Pour notre expérience, nous avons employé uniquement les trois derniers ensembles mentionnés ci haut.    
 
-Puisque nous avons uniquement identifié les séquences de nucléotides, BayesPairing2 a entrepris un échantionllonage non redondant des structures secondaires de l'ensemble complet en utilisant RNAsubopt. La librairie htd entreprend la décomposition arborescente des modules et les probabilités conditionnelles sont apprises à l'aide de pgmpy. [@bayes]
+Puisque nous avons uniquement identifié les séquences de nucléotides, BayesPairing2 a entrepris un échantillonnage non redondant des structures secondaires de l'ensemble complet en utilisant RNAsubopt. La librairie htd entreprend la décomposition arborescente des modules et les probabilités conditionnelles sont apprises à l'aide de pgmpy. [@bayes]  
 
-## Jeux de données
+Les scores des modules représentent un ratio de rapport de vraisemblance reflétant la probabilité de la séquence dépendamment du module. Un score élevé indique une très grande similarité à un motif 3D connu dans l'ensemble de donnée utilisé. Nous avons ensuite identifié les motifs visuellement (normalement il est possible de mapper les modules à leurs motifs, mais nous avons rencontré un problème avec certains scripts que ne n'avons malheureusement pas pu troubleshoot). Nous les avons aussi validés en rentrant les séquences sur [JAR3D](), un autre outil qui peut identifier des motifs dans des séquences d'ARN.
 
-Human GPX1 SECIS (PDB 2Y0S)  
-GCUUGCAUGAGUCCCCAAAGGGGAGUGCAGGC  
+## Jeux de données  
+*GUAA tetraloop mutant of Sarcin/Ricin domain from E. Coli 23 S rRNA* (PDB 1MSY)  
+`>1MSY_1|Chain A|SARCIN/RICIN DOMAIN FROM 23 S RRNA|null`  
+`UGCUCCUAGUACGUAAGGACCGGAGUG`  
 
-```{r SECIS, fig.show="hold", fig.cap=c("rel","atlas","all","kt"), echo=FALSE, out.width='50%', fig.show='hold', fig.align='center', out.height=300}
-knitr::include_graphics(c("kturn_rel.svg",
-                          "kturn_atlas.svg",
-                          "kturn_all.svg",
-                          "kturn_kt.svg"))
-
+```{r, echo=FALSE, cache=FALSE, warning=FALSE}
+library(DT)
+library(readxl)
 ```
 
-B. subtilis RNase P (PDB 1F6X)  
-GAGCCUGGAAGUCCGGCUUC  
+```{r SRL, fig.show="hold", fig.align="center",fig.cap=("De gauche à droite: Structure 2D de la séquence inférée à l'aide des ensembles RELIABLE, rna3dmotif_jan2025 et ALL, respectivement."), echo=FALSE, out.width='33%', out.height=250}
+knitr::include_graphics(c("1MSY_rel.svg",
+                          "1MSY_atlas.svg",
+                          "1MSY_all.svg"))
+```  
 
-```{r RNaseP, fig.show="hold", fig.cap="Caption", echo=FALSE, out.width='50%', fig.show='hold', fig.align='center', out.height=300}
-knitr::include_graphics(c("p4junction_rel.svg",
-                          "p4junction_atlas.svg",
-                          "p4junction_all.svg",
-                          "p4junction_kt.svg"))
-
+```{r, echo=FALSE, cache=FALSE, warning=FALSE}
+dt1<-data.frame(BD = c("RELATIVE", "RELATIVE", "RNA 3D Motif Atlas", "RNA 3D Motif Atlas", "ALL", "ALL", "ALL"),
+                MODULE = c(55, 259, 33, 139, 123, 481, 677),
+                SCORE = c(1.841, 7.113, 4.46, 8.161, 5.183, 4.437, 2.203),
+                POSITIONS = c("9,12-15,18", "5-6,8,19-21","11-16", "5-11,16-21", "11-16", "20-21,5,7-8", "16-20,8-9,11"),
+                SEQUENCE = c("UGUAAA", "CUG&CCG", "CGUAAG", "CUAGUAC&GGACCG", "CGUAAG", "CG&CAG", "GGACC&GUC"))
 ```
 
-28S Ribosomal RNA (PDB 1MSY)  
-UCCGGUUCCAGCCUCCUCAGAAACCGGAG  
+```{r, echo=FALSE}
+datatable(dt1)
+```  
 
-```{r SRL, fig.show="hold", fig.cap="Caption", echo=FALSE, out.width='50%', fig.show='hold', fig.align='center', out.height=300}
-knitr::include_graphics(c("sturn_rel.svg",
-                          "sturn_atlas.svg",
-                          "sturn_all.svg",
-                          "sturn_kt.svg"))
+*61 nt human Hepatitis B virus epsilon pre-genomic RNA* (PDB 6VAR)  
+`>6VAR_1|Chain A|RNA (61-MER)|Hepatitis B virus (10407)`  
+`GGUUCAUGUCCUACUGUUCAAGCCUCCAAGCUGUGCCUUGGGUGGCUUUGGGGCAUGGACC`
+
+
+```{r 6var1, fig.align='center', echo=FALSE, out.width=350, out.height=400}
+knitr::include_graphics("6VAR_rel.svg")
+
+``` 
+```{r 6var2, fig.align='center', echo=FALSE, out.width=350, out.height=400}
+knitr::include_graphics("6VAR_atlas.svg")
+
+``` 
+```{r 6var3, fig.align='center', fig.cap=("De haut en bas: Structure 2D de la séquence inférée à l'aide des ensembles RELIABLE, rna3dmotif_jan2025 et ALL, respectivement."), echo=FALSE, out.width=350, out.height=400}
+knitr::include_graphics("6VAR_all.svg")
+```  
+  
+```{r, echo=FALSE, cache=FALSE, warning=FALSE}
+dt2 = read_excel("6var.xlsx")
+``` 
+```{r, echo=FALSE}
+datatable(dt2)
+```  
+
+*Crystal structure of an E. coli thi-box riboswitch bound to thiamine pyrophosphate, manganese ions* (PDB 2HOJ)  
+`>2HOJ_1|Chain A|thi-box riboswitch|null`  
+`GCGACUCGGGGUGCCCUUCUGCGUGAAGGCUGAGAAAUACCCGUAUCACCUGAUCUGGAUAAUGCCAGCGUAGGGAAGUCGCA`  
+
+```{r ribo1, fig.show="hold", echo=FALSE, out.width=700, fig.align='center', out.height=300}
+knitr::include_graphics("2HOJ_rel.svg")
 
 ```
+```{r ribo2, fig.show="hold",echo=FALSE, out.width=600, fig.align='center', out.height=425}
+knitr::include_graphics("2HOJ_atlas.svg")
 
-
+```
+```{r ribo3, fig.show="hold", fig.cap=c("De haut en bas: Structure 2D de la séquence inférée à l'aide des ensembles RELIABLE, rna3dmotif_jan2025 et ALL, respectivement."), echo=FALSE, out.width=580, fig.align='center', out.height=250}
+knitr::include_graphics("2HOJ_all.svg")
+```
+  
+```{r, echo=FALSE, cache=FALSE, warning=FALSE}
+dt3 = read_excel("ribo.xlsx")
+``` 
+```{r, echo=FALSE}
+datatable(dt3)
+```  
+ 
 # Conclusion et perspectives
+
+There WILL BE content here tmr
 
 # Références
 
